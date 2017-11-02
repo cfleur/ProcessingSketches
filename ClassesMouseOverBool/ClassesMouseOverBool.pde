@@ -1,6 +1,9 @@
 /* This program draws shapes as objects and can assign button functions on mouse over.
 Note that if shapes overlap, it may interfere with isButton function. */
 
+//TODO: Take bool isButton out of class. Make a more obvious way to instastiate the shape type.
+// this should make the isButton function easier and more intuative.
+
 PosCenter rect1Pos;
 Shape rect1;
 PosCenter elli1Pos;
@@ -19,7 +22,7 @@ void setup() {
   centerModeOn();
 
   // Initialize shapes
-  rect1Pos = new PosCenter(width/2, height/2);
+  rect1Pos = new PosCenter(width/2, height/2); 
   rect1 = new Shape(rect1Pos, 20, 60);
   elli1Pos = new PosCenter(width-width/4, height-height/3);
   elli1 = new Shape(elli1Pos, 45, 35);
@@ -30,12 +33,16 @@ void setup() {
 }
 
 void draw() {
-  ellipse(rect1.pos.x, rect1.pos.y, 1, 1);
-  rect1.isButton("rect", 125, bg);
-  elli1.isButton("ellipse", red, bg);
-  elli2.isButton("ellipse", turq, bg);
+  rect1.isButton("rect", 125, 225);
+  elli1.isButton("ellipse", red, 225);
+  elli2.isButton("ellipse", turq, 225);
 }
 
+void mousePressed(){
+  if (rect1.isButton("rect", 125, 225)){
+    println("rect1.isButton");}
+  
+}
 
 class PosCenter {
   float x;
@@ -64,7 +71,7 @@ class Shape {
     ellipse(pos.x, pos.y, w, h);
   }
 
-  boolean isButton(String shapeType, color buttonOnColor, color buttonOffColor) {
+  boolean isButton(String shapeType, color buttonOverColor, color buttonOffColor) {
     rectMode(CENTER);
     ellipseMode(CENTER);
     float x = pos.x;
@@ -76,7 +83,7 @@ class Shape {
     if (mouseX <= w/2+x && mouseX >= w/-2+x && mouseY <= h/2+y && mouseY >= h/-2+y) {
       // w/2+x, w/-2+x, h/2+y, h/-2+y because center mode is on
       println("isButton == true");
-      fill(buttonOnColor);
+      fill(buttonOverColor);
       if (shapeType == "rect")
         drawRect();
       else if (shapeType == "ellipse")
