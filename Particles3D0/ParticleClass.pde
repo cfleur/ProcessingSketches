@@ -37,7 +37,8 @@ class Particle {
     //vel.limit(8);
 
     // set appearance according to life stage
-    shape.setStrokeWeight(0);
+    shape.setStrokeWeight(1);
+    sphereDetail(8);
     if (life.y >= 100.0 && life.y < 200.0) { // ! need reference to global coordinate system
       //println("life 1 over");
       shape.setFill(color(200, 100, 100));
