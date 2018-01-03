@@ -1,7 +1,7 @@
 /* Processing surface assignment: 
-
-"Perlin Mountains and Ice Lakes"
-
+ 
+ "Perlin Mountains and Ice Lakes"
+ 
  Simulates the fly-over of a mountainous terrain with valleys of ice.
  Mountains are drawn based on the Perlin noise function.
  A sense of "fog" and increasing "visibility" as the mountains move 
@@ -10,7 +10,6 @@
  
  Interactivity: 1) click to get RGB value at (x,y) point; 
  2) click-drag to move camera (needs imporvement).
- 
  
  references/inspiration: 
  https://github.com/CodingTrain/Rainbow-Code/blob/master/CodingChallenges/CC_11_PerlinNoiseTerrain/CC_11_PerlinNoiseTerrain.pde
@@ -38,11 +37,10 @@ float variation = 200; // height/depth of mountains (z value)
 float diff = 0.09; // size of step change in y values
 
 
-
 void setup () {
   size(700, 575, P3D);
   img = loadImage("Ice_road_in_the_Northwest_Territories_-a.jpg");
-  frameRate(10);
+  frameRate(25);
 }
 
 
@@ -145,8 +143,10 @@ void createIce() {
 // ----- Interactivity Functions -----
 
 void mouseDragged() {
-  camera(mouseX*2, mouseY*5, mouseY, 0, 0, 0, 0, 1, 0); // needs improvement,
-                                                        // but can be used for viewing and correction
+  // camera - needs improvement, but can be used for viewing and correction
+  camera(mouseX*2, mouseY*5, (mouseY*2/2) / tan(PI*30.0 / 180.0), 
+    width/2.0, height/2.0, 0, 
+    0, 1, 0);
 }
 
 void mouseReleased() {
@@ -156,7 +156,7 @@ void mouseReleased() {
 }
 
 void mousePressed() {
-/* Prints the RGB values at clicked point (x,y) to the console. */
+  /* Prints the RGB values at clicked point (x,y) to the console. */
 
   color c = get(mouseX, mouseY);
   println("RBG values (on click): ", red(c), ", ", green(c), ", ", blue(c));
